@@ -23,4 +23,12 @@ SOFTWARE.
 """
 
 import numpy as np
-import cv2
+
+def normalization(arr):
+    min_v = np.min(arr)
+    max_v = np.max(arr)
+
+    arr = (arr - min_v) / (max_v - min_v)
+    arr = (arr * 255).astype(np.uint8)
+
+    return arr

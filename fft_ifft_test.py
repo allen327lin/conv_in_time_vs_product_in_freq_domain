@@ -26,7 +26,7 @@ import numpy as np
 import cv2
 from resize_kernel import resize_kernel
 
-img = cv2.imread("./photos/profile_photo.jpg", 0)
+img = cv2.imread("./photos/profile_photo_255.jpg", 0)
 
 # kernel = np.array([[ 0,-1, 0],
 #                              [-1, 4,-1],

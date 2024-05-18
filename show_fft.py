@@ -26,10 +26,10 @@ import numpy as np
 import cv2
 
 def show_fft(fft, name):
-    fft = 20 * np.log(np.abs(fft) + 1)
+    fft = np.log(np.abs(fft) + 1)
     fft = fft / fft.max() * 255.0
     fft = np.uint8(fft)
 
     cv2.namedWindow(name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(name, 700, 700)
+    cv2.resizeWindow(name, 500, 500)
     cv2.imshow(name, fft)
