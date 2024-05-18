@@ -1,1 +1,1 @@
-# conv_in_time_vs_multiply_in_freq_domain
+# conv_in_time_vs_product_in_freq_domain
