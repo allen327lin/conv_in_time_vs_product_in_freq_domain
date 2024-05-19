@@ -25,7 +25,7 @@ SOFTWARE.
 import numpy as np
 import cv2
 from scipy.signal import convolve2d
-from normalization import normalization
+from utils import normalization, show_img
 
 def convolution(img, kernel):
     conv_result = convolve2d(img, kernel, 'same')
@@ -44,16 +44,12 @@ if __name__ == "__main__":
                                  [1, 1, 1]], dtype='int8')
     high_pass_conv_result = convolution(img, high_pass_kernel)
     high_pass_conv_result = np.where(high_pass_conv_result > 160, high_pass_conv_result, 0)
-    cv2.namedWindow("high_pass_conv_result", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow("high_pass_conv_result", 500, 500)
-    cv2.imshow("high_pass_conv_result", high_pass_conv_result)
+    show_img("high_pass_conv_result", high_pass_conv_result)
 
     # Input Low-pass kernel
     kernel_size = 15
     low_pass_kernel = np.ones((kernel_size, kernel_size), np.float64) / kernel_size ** 2
     low_pass_conv_result = convolution(img, low_pass_kernel)
-    cv2.namedWindow("low_pass_conv_result", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow("low_pass_conv_result", 500, 500)
-    cv2.imshow("low_pass_conv_result", low_pass_conv_result)
+    show_img("low_pass_conv_result", low_pass_conv_result)
 
     cv2.waitKey(0)

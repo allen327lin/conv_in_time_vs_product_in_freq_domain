@@ -23,6 +23,31 @@ SOFTWARE.
 """
 
 import numpy as np
+import cv2
+
+
+def show_img(title, img, save_img=False):
+    cv2.namedWindow(title, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(title, 400, 400)
+    cv2.imshow(title, img)
+    if save_img:
+        cv2.imwrite("./photos/results/" + title + ".png", img)
+    return 0
+
+
+def show_fft(title, fft, save_img=False):
+    fft = np.log(np.abs(fft) + 1)
+    fft = fft / fft.max() * 255.0
+    fft = np.uint8(fft)
+
+    cv2.namedWindow(title, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(title, 400, 400)
+    cv2.imshow(title, fft)
+    if save_img:
+        cv2.imwrite("./photos/results/" + title + ".png", fft)
+
+    return 0
+
 
 def normalization(arr):
     min_v = np.min(arr)

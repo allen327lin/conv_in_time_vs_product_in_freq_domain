@@ -26,43 +26,50 @@ import numpy as np
 import cv2
 from dft_product import dft_product
 from convolution import convolution
+from utils import show_img
+from argparse import ArgumentParser
 
-def main():
+def main(save_img=False):
     img = cv2.imread("./photos/profile_photo_501.jpg", 0)
+    show_img("Original image", img, save_img=False)
 
-    # High-pass kernel
+
+    # High-pass kernel (Laplacian filter)
+    edge_threshold = 160   # 邊緣 Threshold 設定 160
     high_pass_kernel = np.array([[1, 1, 1],
-                                 [1, -8, 1],
+                                 [1,-8, 1],
                                  [1, 1, 1]], dtype='int8')
-    # Low-pass kernel
+    # edge_threshold = 140  # 邊緣 Threshold 設定 140
+    # high_pass_kernel = np.array([[ 0,-1, 0],
+    #                              [-1, 4,-1],
+    #                              [ 0,-1, 0]], dtype='int8')
+
+    # Low-pass kernel (Mean filter)
     kernel_size = 15
     low_pass_kernel = np.ones((kernel_size, kernel_size), np.float64) / kernel_size ** 2
 
+
     # Input High-pass kernel to dft_product
-    high_pass_result = dft_product(img, high_pass_kernel, "high_pass")
-    high_pass_result = np.where(high_pass_result > 160, high_pass_result, 0)  # 邊緣 Threshold 設定 160
-    cv2.namedWindow("high_pass_result", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow("high_pass_result", 500, 500)
-    cv2.imshow("high_pass_result", high_pass_result)
+    high_pass_result = dft_product(img, high_pass_kernel, "High_pass", save_img)
+    high_pass_result = np.where(high_pass_result > edge_threshold, high_pass_result, 0)
+    show_img("Result of DFT product, High-pass kernel", high_pass_result, save_img)
+
 
     # Input Low-pass kernel to dft_product
-    low_pass_result = dft_product(img, low_pass_kernel, "low_pass")
-    cv2.namedWindow("low_pass_result", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow("low_pass_result", 500, 500)
-    cv2.imshow("low_pass_result", low_pass_result)
+    low_pass_result = dft_product(img, low_pass_kernel, "Low_pass", save_img)
+    show_img("Result of DFT product, Low-pass kernel", low_pass_result, save_img)
+
 
     # Input High-pass kernel to convolution
     high_pass_conv_result = convolution(img, high_pass_kernel)
-    high_pass_conv_result = np.where(high_pass_conv_result > 160, high_pass_conv_result, 0)
-    cv2.namedWindow("high_pass_conv_result", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow("high_pass_conv_result", 500, 500)
-    cv2.imshow("high_pass_conv_result", high_pass_conv_result)
+    high_pass_conv_result = np.where(high_pass_conv_result > edge_threshold, high_pass_conv_result, 0)
+    show_img("Result of Convolution, High-pass kernel", high_pass_conv_result, save_img)
+
 
     # Input Low-pass kernel to convolution
     low_pass_conv_result = convolution(img, low_pass_kernel)
-    cv2.namedWindow("low_pass_conv_result", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow("low_pass_conv_result", 500, 500)
-    cv2.imshow("low_pass_conv_result", low_pass_conv_result)
+    show_img("Result of Convolution, Low-pass kernel", low_pass_conv_result, save_img)
+
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -71,4 +78,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = ArgumentParser()
+    parser.add_argument("--save_img", help="Use --save_img if you want to save result images, otherwise don't use it.", action="store_true")
+    args = parser.parse_args()
+    if args.save_img:
+        main(save_img=True)
+    else:
+        main(save_img=False)
