@@ -3,6 +3,7 @@ A simple project that compares the result of
 convolution in the time domain with 
 the result of multiplication in the frequency domain. 
 
+
 ## Getting started
 ```
 # Ubuntu
@@ -13,20 +14,26 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+
 ## Usage
 ### main.py
 如果要儲存所有結果圖：`python3 main.py --save_img` \
 如果不要儲存任何結果圖：`python3 main.py`
 
+
 ## Result
 DFT product + High-pass kernel (Threshold = 160)
 ![Result of DFT product, High-pass kernel.png](photos/results_using_profile_photo_501/Result%20of%20DFT%20product,%20High-pass%20kernel.png)
-DFT product + Low-pass kernel
+
+\ DFT product + Low-pass kernel
 ![Result of DFT product, Low-pass kernel.png](photos/results_using_profile_photo_501/Result%20of%20DFT%20product,%20Low-pass%20kernel.png)
-Convolution + High-pass kernel (Threshold = 160)
+
+\ Convolution + High-pass kernel (Threshold = 160)
 ![Result of Convolution, High-pass kernel.png](photos/results_using_profile_photo_501/Result%20of%20Convolution,%20High-pass%20kernel.png)
-Convolution + Low-pass kernel
+
+\ Convolution + Low-pass kernel
 ![Result of Convolution, Low-pass kernel.png](photos/results_using_profile_photo_501/Result%20of%20Convolution,%20Low-pass%20kernel.png)
+
 
 ## License
 MIT License
