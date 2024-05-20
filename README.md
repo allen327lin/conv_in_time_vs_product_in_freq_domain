@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 
 ## Result
-DFT product + High-pass kernel (Laplacian filter, threshold = 160)
+DFT product + High-pass kernel (Laplacian filter, threshold = 140)
 
 ![Edge of DFT product, High-pass kernel (Threshold = 140).png](photos/results_using_profile_photo_501_8/Edge%20of%20DFT%20product,%20High-pass%20kernel%20(Threshold%20=%20140).png)
 
