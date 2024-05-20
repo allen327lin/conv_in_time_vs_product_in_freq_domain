@@ -51,8 +51,9 @@ def main(save_img=False):
 
     # Input High-pass kernel to dft_product
     high_pass_result = dft_product(img, high_pass_kernel, "High_pass", save_img)
-    high_pass_result = np.where(high_pass_result > edge_threshold, high_pass_result, 0)
     show_img("Result of DFT product, High-pass kernel", high_pass_result, save_img)
+    high_pass_result = np.where(high_pass_result > edge_threshold, high_pass_result, 0)
+    show_img("Edge of DFT product, High-pass kernel", high_pass_result, save_img)
 
 
     # Input Low-pass kernel to dft_product
@@ -62,8 +63,9 @@ def main(save_img=False):
 
     # Input High-pass kernel to convolution
     high_pass_conv_result = convolution(img, high_pass_kernel)
-    high_pass_conv_result = np.where(high_pass_conv_result > edge_threshold, high_pass_conv_result, 0)
     show_img("Result of Convolution, High-pass kernel", high_pass_conv_result, save_img)
+    high_pass_conv_result = np.where(high_pass_conv_result > edge_threshold, high_pass_conv_result, 0)
+    show_img("Edge of Convolution, High-pass kernel", high_pass_conv_result, save_img)
 
 
     # Input Low-pass kernel to convolution
@@ -83,5 +85,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.save_img:
         main(save_img=True)
-    else:
-        main(save_img=False)
